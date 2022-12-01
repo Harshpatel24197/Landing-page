@@ -1,17 +1,3 @@
-const cardList = [
-    {
-        title: "Nature",
-        image: "images/Image.jpg",
-        link: "About Nature",
-        desciption: "Demo desciption about kitten 2"
-    },
-    {
-        title: "James webb",
-        image: "images/spca.webp",
-        link: "About James webb",
-        desciption: "Demo desciption about kitten 3"
-    }
-]
 $(document).ready(function(){
       
     $('#demo-carousel').carousel({fullWidth: true});
@@ -19,13 +5,35 @@ $(document).ready(function(){
 const clickMe = () => {
     alert("Thanks for clicking me. Hope you have a nice day!")
 }
+const getProjects = () => {
+    $.get('/api/projects',(response) => {
+        if(response.statusCode==200){
+            addCards(response.data);
+        }
+    })
+}
 const submitForm = () => {
     let formData = {};
-    formData.first_name = $('#first_name').val();
-    formData.last_name = $('#last_name').val();
-    formData.password = $('#password').val();
-    formData.email = $('#email').val();
+    formData.title = $('#title').val();
+    formData.image = $('#image').val();
+    formData.link = $('#link').val();
+    formData.description = $('#description').val();
     console.log("Form Data Submitted: ", formData);
+    addajax(formData);
+}
+//ajax function
+const addajax= (project) =>{
+    $.ajax({
+        url: '/api/projects',
+        data: project,
+        type: 'POST',
+        success: (result) =>{
+            alert(result.message);
+            location.reload();
+        }
+
+    })
+
 }
 const addCards = (items) => {
     items.forEach(item => {
@@ -35,7 +43,7 @@ const addCards = (items) => {
     '<span class="card-title activator grey-text text-darken-4">'+item.title+'<i class="material-icons right">more_vert</i></span><p><a href="#">'+item.link+'</a></p></div>'+
     '<div class="card-reveal">'+
         '<span class="card-title grey-text text-darken-4">'+item.title+'<i class="material-icons right">close</i></span>'+
-        '<p class="card-text">'+item.desciption+'</p>'+
+        '<p class="card-text">'+item.description+'</p>'+
       '</div></div></div>';
       $("#card-section").append(itemToAppend)
     });
@@ -45,6 +53,6 @@ $(document).ready(function(){
     $('#formSubmit').click(()=>{
         submitForm();
     })
-    addCards(cardList);
+    getProjects();
     $('.modal').modal();
   });
