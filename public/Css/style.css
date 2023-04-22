@@ -1,20 +1,22 @@
 .navbar-size {
+    background-color: #4caf50;
     width: 95%;
     margin: 0 auto;
 }
 .user-image-size {
     height: 64px;
 }
-.navbar-size {
-    width: 95%;
-    margin: 0 auto;
+#heading{
+    text-align: center;
 }
+
+
 .user-image-size {
     height: 56px;
     margin: 4px 0;
 }
 .main-body {
-    background-color: lightpink;
+    background-color: rgb(3, 105, 18);
     color: white;
     height: calc(100vh - 64px);
 }
@@ -23,6 +25,6 @@
     height: 400px;
 }
 .click-me-button {
-    background-color: #EE6E73;
+    background-color: #6eee90;
     margin-top: 50px;
 }
